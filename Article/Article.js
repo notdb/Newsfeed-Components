@@ -1,5 +1,5 @@
 // Because classes are not hoisted you will need to start your code at the bottom of the page.  Look for the comment "START HERE"
-
+let i = 0;
 class Article {
   constructor(domElement) {
     // assign this.domElement to the passed in domElement
@@ -7,14 +7,25 @@ class Article {
     // create a reference to the ".expandButton" class. 
     this.expandButton = this.domElement.querySelector('.expandButton');
     // Using your expandButton reference, update the text on your expandButton to say "expand"
-    this.expandButton.textContent = 'expand';
+    this.expandButton.textContent = 'read';
+    
     // Set a click handler on the expandButton reference, calling the expandArticle method.
     this.expandButton.addEventListener('click', () => this.expandArticle());
   }
 
   expandArticle() {
     // Using our reference to the domElement, toggle a class to expand or hide the article.
+    
+    if( i === 1){
+      this.expandButton.textContent = 'read';
+      i--;
+    } else {
+      this.expandButton.textContent = 'close';
+      i++;
+    }
     this.domElement.classList.toggle('article-open')
+
+    console.log(i);
 
   }
 }
@@ -63,7 +74,10 @@ function loadStuff(){
       this.articleText = JSON.article;
     }
     articleConstructer(){
+      // select articles class
       let articleA = document.querySelector('.articles')
+
+      //create new article elements
       let newArticle = document.createElement('article');
       newArticle.setAttribute('class', 'article');
       let newTitle = document.createElement('h2');
@@ -71,15 +85,23 @@ function loadStuff(){
       let newArticleText = document.createElement('p');
       let newButton = document.createElement('span');
       newButton.setAttribute('class', 'expandButton');
+
+      //set text content to object properties and button to 'expand'
       newButton.textContent = 'expand';
       newTitle.textContent = this.title;
       newDate.textContent = this.date;
       newArticleText.textContent = this.articleText;
+
+      //appends pieces of article together 
       newArticle.appendChild(newTitle);
       newArticle.appendChild(newDate);
       newArticle.appendChild(newArticleText);
       newArticle.appendChild(newButton);
-      let blah = new Article(newArticle);
+
+      //gives new article event handlers by passing the newly created <article> element into the Article class
+      new Article(newArticle);
+
+      //append the article to the .articles section of html
       articleA.appendChild(newArticle);
       
     }
