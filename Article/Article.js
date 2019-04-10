@@ -70,7 +70,7 @@ function loadStuff(){
   class FakeArticle {
     constructor(JSON) {
       this.title = JSON.title;
-      this.date = JSON.date;
+      this.date = new Date();
       this.articleText = JSON.article;
     }
     articleConstructer(){
