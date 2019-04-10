@@ -32,3 +32,68 @@ articles.forEach(function(article){
   const articleClassCreator = new Article(article);
   console.log(articleClassCreator);
 })
+
+// Making a component constructor
+
+/* 
+To make a component constructor we're going to add an input field onto the page somewhere. 
+
+The input form will have fields for the article template, title (h2), p(date or new Date();), and p(for the actual article text). 
+
+When the user clicks the submit button, it's going to take those fields and create a new JSON object and then push them into an array (maybe).
+
+There'll be another function that takes the JSON object as an argument
+
+There'll be a class that takes the JSON object as an argument and has a method that builds out the article using appendChild, finally appending it to the last article in the articles class
+*/
+
+
+
+
+
+let submitButton = document.querySelector('.submitButton');
+
+submitButton.addEventListener('click', loadStuff);
+
+function loadStuff(){
+  class FakeArticle {
+    constructor(JSON) {
+      this.title = JSON.title;
+      this.date = JSON.date;
+      this.articleText = JSON.article;
+    }
+    articleConstructer(){
+      let articleA = document.querySelector('.articles')
+      let newArticle = document.createElement('article');
+      newArticle.setAttribute('class', 'article');
+      let newTitle = document.createElement('h2');
+      let newDate = document.createElement('date');
+      let newArticleText = document.createElement('p');
+      let newButton = document.createElement('span');
+      newButton.setAttribute('class', 'expandButton');
+      newButton.textContent = 'expand';
+      newTitle.textContent = this.title;
+      newDate.textContent = this.date;
+      newArticleText.textContent = this.articleText;
+      newArticle.appendChild(newTitle);
+      newArticle.appendChild(newDate);
+      newArticle.appendChild(newArticleText);
+      newArticle.appendChild(newButton);
+      let blah = new Article(newArticle);
+      articleA.appendChild(newArticle);
+      
+    }
+  }
+
+  let titleForm = document.querySelector('.titleForm');
+  let dateForm = document.querySelector('.dateForm');
+  let articleForm = document.querySelector('.articleForm');
+  let jsonObj = {
+    title: titleForm.value,
+    date: dateForm.value,
+    article: articleForm.value,
+  }
+
+  const testArticle = new FakeArticle(jsonObj);
+  testArticle.articleConstructer();
+}
